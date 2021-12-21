@@ -8,9 +8,16 @@
         "@wdio/mocha-framework": "^7.16.11",
         "@wdio/spec-reporter": "^7.16.11",
         "chromedriver": "^96.0.0",
+        "supertest": "^6.1.6",
         "wdio-chromedriver-service": "^7.2.2"
     },
     "scripts": {
         "wdio": "wdio run wdio.conf.js"
+    },
+    "dependencies": {
+        "axios": "^0.24.0",
+        "express": "^4.17.2",
+        "form-data": "^4.0.0",
+        "request": "^2.88.2"
     }
 }
