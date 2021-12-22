@@ -18,6 +18,7 @@
         "axios": "^0.24.0",
         "express": "^4.17.2",
         "form-data": "^4.0.0",
-        "request": "^2.88.2"
+        "request": "^2.88.2",
+        "unirest": "^0.6.0"
     }
 }
