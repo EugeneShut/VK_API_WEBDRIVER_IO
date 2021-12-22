@@ -6,23 +6,25 @@ var unirest = require('unirest');
 
 class MainPage extends Page {
     post_random_message() {
+        var options = {
+            'method': 'POST',
+            'url': 'https://api.vk.com/method/wall.post',
+            'headers': {
+            },
+            formData: {
+                'access_token': 'c2ad3c985319a3660968f2ed11f891e0577740e7356ba1bf793b296c8161fd4fdbe0d951da623335a04f3',
+                'message': 'test',
+                'v': '5.131'
+            }
+        };
         return new Promise((resolve, reject) => {
-            unirest('POST', 'https://api.vk.com/method/wall.post')
-                .field('access_token', 'c2ad3c985319a3660968f2ed11f891e0577740e7356ba1bf793b296c8161fd4fdbe0d951da623335a04f3')
-                .field('message', 'test1')
-                .field('v', '5.131')
-                .end(function (res) {
-                    if (res.error) {
-                        throw new Error(res.error);
-                    }
-                    return resolve(res.raw_body);
-                })
+            request(options, function (error, response) {
+                if (error) throw new Error(error);
+                console.log(typeof response.body);
+                return resolve(response.body)
+            });
         })
 
-    }
-
-    open() {
-        return $('#l_pr').click();
     }
 }
 
