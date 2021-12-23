@@ -55,12 +55,8 @@ class VkApi {
             let link = await this.getUploadLink()
             var imageData = new FormData()
             const path = require('path');
-            const coolPath = path.join(__dirname, '..', '..', 'images/image.png')
-            // const image_path = fs.createReadStream("image.png")
-            // image_path.on('data', function (chunk) {
-            //     console.log(chunk.toString())
-            // })
-            imageData.append('photo', fs.createReadStream('image.png'));
+            const coolPath = path.join(__dirname, '..', '..', image_path)
+            imageData.append('photo', fs.createReadStream(coolPath));
             let push_image_config = {
                 method: 'post',
                 url: link,
@@ -78,7 +74,8 @@ class VkApi {
         }
     }
 
-    async SaveImage(user_id, push_image) {
+    async PostImageToWall(user_id, image_path) {
+        let push_image = await this.UploadImage(image_path)
         let data_d = new FormData();
         data_d.append('access_token', API_TOKEN);
         data_d.append('v', API_VK_VERSION);
@@ -98,7 +95,7 @@ class VkApi {
         }
         let result = await axios(save_image_comfig)
         console.log(data_d)
-        return result.data.response
+        return "photo" + user_id + "_" + result.data.response[0].id
     }
 
     async EditWallPost(post_id, image="", message="") {
