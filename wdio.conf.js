@@ -141,6 +141,8 @@ exports.config = {
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
     mochaOpts: {
+        // Babel setup
+        require: ['@babel/register'],
         ui: 'bdd',
         timeout: 60000
     },
