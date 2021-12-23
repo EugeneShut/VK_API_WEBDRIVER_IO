@@ -25,7 +25,7 @@ class VkApi {
                 data: data_d
             }
             let response = await axios(config)
-            return response.data.response.post_id;
+            return response.data.response.post_id.toString();
         } catch(err) {
             return err;
         }
