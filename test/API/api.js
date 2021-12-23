@@ -83,9 +83,9 @@ class VkApi {
         data_d.append('access_token', API_TOKEN);
         data_d.append('v', API_VK_VERSION);
         data_d.append("user_id", user_id)
-        data_d.append("photo", push_image.data.photo)
-        data_d.append("server", push_image.data.server)
-        data_d.append("hash", push_image.data.hash)
+        data_d.append("server", push_image.server)
+        data_d.append("hash", push_image.hash)
+        data_d.append("photo", push_image.photo)
 
 
         let save_image_comfig = {
