@@ -12,7 +12,7 @@ class MainPage extends Page {
     postText = " > div > div.post_content > div > div.wall_text"
     updatedPostText = "> div.post_highlight_updated_content"
 
-    get lastPost() {
+    get latestPost() {
         return $(this.lastPost).getAttribute("id")
     }
 
@@ -86,7 +86,7 @@ class MainPage extends Page {
     async LastPostId(user_id, post_id) {
         await browser.waitUntil(
             async () => (await $(this.post + user_id + '_' + post_id).getText()), {timeout: config.defaultTimeoutTime})
-        let posted_id = await this.lastPost
+        let posted_id = await this.latestPost
         return posted_id.split("_")[1]
     }
 
