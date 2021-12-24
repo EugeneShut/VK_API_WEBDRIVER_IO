@@ -188,5 +188,27 @@ class VkApi {
         }
     }
 
+    async DeletePost(post_id) {
+        try {
+            let data_d = new FormData();
+            data_d.append('access_token', API_TOKEN);
+            data_d.append('v', API_VK_VERSION);
+            data_d.append('post_id', post_id);
+
+            let config = {
+                method: 'post',
+                url: API_BASE_URL + "/method/wall.delete",
+                headers: {
+                    ...data_d.getHeaders()
+                },
+                data: data_d
+            }
+            let response = await axios(config)
+            return response.data;
+        } catch(err) {
+            return err;
+        }
+    }
+
 }
 export default new VkApi();

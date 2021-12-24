@@ -56,6 +56,12 @@ class MainPage extends Page {
         })
     }
 
+    async deleteWallPost(post_id) {
+        return browser.call(() => {
+            VkApi.DeletePost(post_id)
+        })
+    }
+
     async getPostComment(user_id, post_id) {
         return $('#wpt' + user_id + '_' + post_id).getText()
     }
@@ -67,7 +73,7 @@ class MainPage extends Page {
     async getEditedPostMessage(user_id, post_id) { // TODO: edit
         await browser.waitUntil(
             async () => (await $('#post' + user_id + '_' + post_id + " > div > div.post_content > div > div.wall_text > div.post_highlight_updated_content").getText()), {timeout: config.defaultTimeoutTime})
-        return $('#post' + user_id + '_' + post_id + " > div > div.post_content > div > div.wall_text").getText()
+        return $('#post' + user_id + '_' + post_id + " > div > div.post_content > div > div.wall_text")
     }
 
     async LastPostId(user_id, post_id) {

@@ -19,7 +19,7 @@ describe('VK Test', () => {
         let image = await MainPage.wallPostImage(user_id, config.image)
         await MainPage.wallPostEdit(post_id, image, config.defaultTestMessage)
         let post_message = await MainPage.getEditedPostMessage(user_id, post_id)
-        await expectChai(config.defaultTestMessage).to.equal(post_message)
+        await expectChai(config.defaultTestMessage).to.equal(await post_message.getText())
         await MainPage.wallPostAddComment(post_id, config.defaultTestMessage)
         let comment_text = await MainPage.getPostComment(user_id, post_id)
         await expectChai(config.defaultTestMessage).to.equal(comment_text)
@@ -28,6 +28,7 @@ describe('VK Test', () => {
         let post_like_id = await MainPage.getPostLike(post_id)
         await expectChai(user_id).to.equal(post_like_id)
 
-        await browser.pause(4000) // TODO: remove
+        await MainPage.deleteWallPost(post_id)
+        expect(post_message).not.toBeDisabled()
     });
 });
