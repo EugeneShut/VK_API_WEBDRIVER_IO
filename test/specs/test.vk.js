@@ -7,7 +7,7 @@ describe('VK Test', () => {
 
     it('vk', async () => {
         await LoginPage.open()
-        await LoginPage.login(config.credentials.login, config.credentials.password) // TODO: HIDE CREDENTIALS
+        await LoginPage.login(config.credentials.login, config.credentials.password)
         await MainPage.open()
         const user_id = await MainPage.GetUserId()
 

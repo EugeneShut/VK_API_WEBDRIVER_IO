@@ -3,6 +3,11 @@
     "login": "login",
     "password": "password"
   },
+  "API": {
+    "token": "c2ad3c985319a3660968f2ed11f891e0577740e7356ba1bf793b296c8161fd4fdbe0d951da623335a04f3",
+    "v": "5.131",
+    "baseUrl": "https://api.vk.com"
+  },
   "image": "images/image.png",
   "defaultTimeoutTime": 5000,
   "defaultTestMessage": "aqa: defaultTestMessage"
