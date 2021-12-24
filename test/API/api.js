@@ -10,6 +10,27 @@ const API_VK_VERSION = '5.131'
 
 class VkApi {
 
+    async GetUserId() {
+        try {
+            let data_d = new FormData();
+            data_d.append('access_token', API_TOKEN);
+            data_d.append('v', API_VK_VERSION);
+
+            let config = {
+                method: 'post',
+                url: API_BASE_URL + "/method/users.get",
+                headers: {
+                    ...data_d.getHeaders()
+                },
+                data: data_d
+            }
+            let response = await axios(config)
+            return response.data.response[0].id.toString();
+        } catch(err) {
+            return err;
+        }
+    }
+
     async PostRandomWallPost() {
         try {
             let data_d = new FormData();
@@ -46,7 +67,6 @@ class VkApi {
             data: data_d
         }
         let response = await axios(config)
-        console.log(response.data.response.upload_url)
         return  response.data.response.upload_url
     }
 
@@ -94,7 +114,6 @@ class VkApi {
             data: data_d
         }
         let result = await axios(save_image_comfig)
-        console.log(data_d)
         return "photo" + user_id + "_" + result.data.response[0].id
     }
 

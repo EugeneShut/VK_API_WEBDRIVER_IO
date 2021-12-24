@@ -13,7 +13,8 @@
         "@wdio/spec-reporter": "^7.16.11",
         "chromedriver": "^96.0.0",
         "supertest": "^6.1.6",
-        "wdio-chromedriver-service": "^7.2.2"
+        "wdio-chromedriver-service": "^7.2.2",
+        "wdio-intercept-service": "^4.2.1"
     },
     "scripts": {
         "wdio": "wdio run wdio.conf.js"
