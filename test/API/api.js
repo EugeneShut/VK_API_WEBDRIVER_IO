@@ -141,5 +141,28 @@ class VkApi {
         }
     }
 
+    async AddPostComment(post_id, message="") {
+        try {
+            let data_d = new FormData();
+            data_d.append('access_token', API_TOKEN);
+            data_d.append('v', API_VK_VERSION);
+            data_d.append('post_id', post_id);
+            data_d.append('message', message);
+
+            let config = {
+                method: 'post',
+                url: API_BASE_URL + "/method/wall.createComment",
+                headers: {
+                    ...data_d.getHeaders()
+                },
+                data: data_d
+            }
+            let response = await axios(config)
+            return response.data.response.post_id.toString();
+        } catch(err) {
+            return err;
+        }
+    }
+
 }
 export default new VkApi();

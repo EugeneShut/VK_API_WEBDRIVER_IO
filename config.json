@@ -3,5 +3,7 @@
     "login": "login",
     "password": "password"
   },
-  "image": "images/image.png"
+  "image": "images/image.png",
+  "defaultTimeoutTime": 5000,
+  "defaultTestMessage": "aqa: defaultTestMessage"
 }
