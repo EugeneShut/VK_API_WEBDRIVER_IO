@@ -50,15 +50,20 @@ class MainPage extends Page {
         })
     }
 
+    async getPostLike(post_id) {
+        return browser.call(() => {
+            return VkApi.GetPostLikes(post_id)
+        })
+    }
+
     async getPostComment(user_id, post_id) {
         return $('#wpt' + user_id + '_' + post_id).getText()
     }
 
-    async openComments() {
-
+    async wallPostLike(user_id, post_id) {
+        return $("div.like_wrap._like_wall" + user_id + "_" + post_id + " > div > div > div").click()
     }
 
-    //post_highlight_updated_content
     async getEditedPostMessage(user_id, post_id) { // TODO: edit
         await browser.waitUntil(
             async () => (await $('#post' + user_id + '_' + post_id + " > div > div.post_content > div > div.wall_text > div.post_highlight_updated_content").getText()), {timeout: config.defaultTimeoutTime})

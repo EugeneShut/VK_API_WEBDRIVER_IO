@@ -24,6 +24,10 @@ describe('VK Test', () => {
         let comment_text = await MainPage.getPostComment(user_id, post_id)
         await expectChai(config.defaultTestMessage).to.equal(comment_text)
 
+        await MainPage.wallPostLike(user_id, post_id)
+        let post_like_id = await MainPage.getPostLike(post_id)
+        await expectChai(user_id).to.equal(post_like_id)
+
         await browser.pause(4000) // TODO: remove
     });
 });
