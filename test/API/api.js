@@ -2,7 +2,7 @@ import axios from 'axios';
 const helper = require('../../helpers/helper')
 const FormData = require('form-data');
 const fs = require('fs');
-var config = require('../../config')
+let config = require('../../config')
 
 const API_BASE_URL = config.API.baseUrl;
 const API_TOKEN = config.API.token
