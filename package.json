@@ -20,6 +20,7 @@
         "wdio": "wdio run wdio.conf.js"
     },
     "dependencies": {
+        "@wdio/logger": "^7.16.0",
         "axios": "^0.24.0",
         "chai": "^4.3.4",
         "express": "^4.17.2",

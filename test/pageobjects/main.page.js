@@ -1,6 +1,10 @@
 import VkApi from "../API/api";
-let config = require('../../config')
 const Page = require('./page');
+import logger from '@wdio/logger'
+let config = require('../../config')
+
+
+const log = logger(config.projectName)
 
 
 class MainPage extends Page {
@@ -21,7 +25,7 @@ class MainPage extends Page {
         return browser.call(() => {
             return VkApi.getUserId()
                 .then(data => user_id = data)
-                .catch(err => console.log(err))
+                .catch(err => log.info(err))
         })
     }
 
@@ -30,7 +34,7 @@ class MainPage extends Page {
         return browser.call(() => {
             return VkApi.postRandomWallPost()
                 .then(data => post_id = data)
-                .catch(err => console.log(err))
+                .catch(err => log.info(err))
         })
     }
 
@@ -39,7 +43,7 @@ class MainPage extends Page {
         return browser.call(() => {
             return VkApi.postImageToWall(user_id, image_path)
                 .then(data => image = data)
-                .catch(err => console.log(err))
+                .catch(err => log.info(err))
         })
     }
 
@@ -47,7 +51,7 @@ class MainPage extends Page {
         return browser.call(() => {
             return VkApi.editWallPost(post_id, image, message)
                 .then(data => post_id = data)
-                .catch(err => console.log(err))
+                .catch(err => log.info(err))
         })
     }
 

@@ -2,7 +2,12 @@ import BaseApi from "../API/BaseApi";
 const helper = require('../../helpers/helper')
 const FormData = require('form-data');
 const fs = require('fs');
+import logger from '@wdio/logger'
 let config = require('../../config')
+
+
+const log = logger(config.projectName)
+
 
 const API_BASE_URL = config.API.baseUrl;
 const API_TOKEN = config.API.token
@@ -43,7 +48,7 @@ class VkApi {
             let response = await BaseApi.postRequest(API_BASE_URL + this.usersGet, data_d)
             return response.data.response[0].id.toString();
         } catch(err) {
-            return err;
+            log.info(err)
         }
     }
 
@@ -58,7 +63,7 @@ class VkApi {
             let response = await BaseApi.postRequest(API_BASE_URL + this.wallPost, data_d)
             return response.data.response.post_id.toString();
         } catch(err) {
-            return err;
+            log.info(err)
         }
     }
 
@@ -83,7 +88,7 @@ class VkApi {
             return push_image.data
 
         } catch(err) {
-            return err;
+            log.info(err)
         }
     }
 
@@ -113,7 +118,7 @@ class VkApi {
             let response = await BaseApi.postRequest(API_BASE_URL + this.wallEdit, data_d)
             return response.data.response.post_id.toString();
         } catch(err) {
-            return err;
+            log.info(err)
         }
     }
 
@@ -128,7 +133,7 @@ class VkApi {
             let response = await BaseApi.postRequest(API_BASE_URL + this.wallCreateComment, data_d)
             return response.data.response.post_id.toString();
         } catch(err) {
-            return err;
+            log.info(err)
         }
     }
 
@@ -143,7 +148,7 @@ class VkApi {
             let response = await BaseApi.postRequest(API_BASE_URL + this.likesGetList, data_d)
             return response.data.response.items[0].toString();
         } catch(err) {
-            return err;
+            log.info(err)
         }
     }
 
@@ -157,7 +162,7 @@ class VkApi {
             let response = await BaseApi.postRequest(API_BASE_URL + this.wallDelete, data_d)
             return response.data;
         } catch(err) {
-            return err;
+            log.info(err)
         }
     }
 
