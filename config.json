@@ -10,5 +10,6 @@
   },
   "image": "images/image.png",
   "defaultTimeoutTime": 5000,
+  "defaultRandomMessageLength": 7,
   "defaultTestMessage": "aqa: defaultTestMessage"
 }

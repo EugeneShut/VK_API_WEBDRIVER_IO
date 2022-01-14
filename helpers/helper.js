@@ -1,6 +1,16 @@
+let config = require('../config.json')
+
+
+const alphabet = "abcdefghijklmnopqrstuvwxyz"
+
+
 class Helper {
-    generate_string() {
-        return (Math.random() + 1).toString(36).substring(7)
+    generate_string(number=config.defaultRandomMessageLength) {
+        let result = ""
+        for (let step = 1; step < number+1; step++) {
+            result = result + alphabet[Math.floor(Math.random() * alphabet.length)]
+        }
+        return result
     }
 }
 
