@@ -1,13 +1,13 @@
 import VkApi from "../API/api";
-const Page = require('./page');
 import logger from '@wdio/logger'
 let config = require('../../config')
+import Element from "../../BASE/Element"
 
 
 const log = logger(config.projectName)
 
 
-class MainPage extends Page {
+class MainPage {
 
     lastPost = '#page_wall_posts > div'
     wpt = '#wpt'
@@ -15,12 +15,9 @@ class MainPage extends Page {
     post = '#post'
     postText = " > div > div.post_content > div > div.wall_text"
     updatedPostText = "> div.post_highlight_updated_content"
+    main_page = "#l_pr"
 
-    get latestPost() {
-        return $(this.lastPost).getAttribute("id")
-    }
-
-    async getUserId() {
+    async getUserId() { // TODO: api
         let user_id
         return browser.call(() => {
             return VkApi.getUserId()
@@ -29,7 +26,7 @@ class MainPage extends Page {
         })
     }
 
-    async wallRandomPost() {
+    async wallRandomPost() { // TODO: api
         let post_id
         return browser.call(() => {
             return VkApi.postRandomWallPost()
@@ -38,7 +35,7 @@ class MainPage extends Page {
         })
     }
 
-    async wallPostImage(user_id, image_path) {
+    async wallPostImage(user_id, image_path) { // TODO: api
         let image
         return browser.call(() => {
             return VkApi.postImageToWall(user_id, image_path)
@@ -47,7 +44,7 @@ class MainPage extends Page {
         })
     }
 
-    async wallPostEdit(post_id, image="", message="") {
+    async wallPostEdit(post_id, image="", message="") { // TODO: api
         return browser.call(() => {
             return VkApi.editWallPost(post_id, image, message)
                 .then(data => post_id = data)
@@ -55,47 +52,49 @@ class MainPage extends Page {
         })
     }
 
-    async wallPostAddComment(post_id, message) {
+    async wallPostAddComment(post_id, message) { // TODO: api
         return browser.call(() => {
             return VkApi.addPostComment(post_id, message)
         })
     }
 
-    async getPostLike(post_id) {
+    async getPostLike(post_id) { // TODO: api
         return browser.call(() => {
             return VkApi.getPostLikes(post_id)
         })
     }
 
-    async deleteWallPost(post_id) {
+    async deleteWallPost(post_id) { // TODO: api
         return browser.call(() => {
             VkApi.deletePost(post_id)
         })
     }
 
     async getPostComment(user_id, post_id) {
-        return $(this.wpt + user_id + '_' + post_id).getText()
+        return await new Element(this.wpt + user_id + '_' + post_id).getText()
     }
 
     async wallPostLike(user_id, post_id) {
-        return $(this.likeWall + user_id + "_" + post_id + " > div > div > div").click()
+        return await new Element(this.likeWall + user_id + "_" + post_id + " > div > div > div").click()
     }
 
     async getEditedPostMessage(user_id, post_id) {
         await browser.waitUntil(
-            async () => (await $(this.post + user_id + '_' + post_id + this.postText + this.updatedPostText).getText()), {timeout: config.defaultTimeoutTime})
-        return $(this.post + user_id + '_' + post_id + this.postText)
+            async () => (await new Element(this.post + user_id +
+                '_' + post_id + this.postText + this.updatedPostText).getText()), {timeout: config.defaultTimeoutTime})
+        return new Element(this.post + user_id + '_' + post_id + this.postText)
     }
 
     async lastPostId(user_id, post_id) {
         await browser.waitUntil(
-            async () => (await $(this.post + user_id + '_' + post_id).getText()), {timeout: config.defaultTimeoutTime})
-        let posted_id = await this.latestPost
+            async () => (await new Element(this.post + user_id + '_' + post_id).getText()),
+            {timeout: config.defaultTimeoutTime})
+        let posted_id = await new Element(this.lastPost).getAttribute("id")
         return posted_id.split("_")[1]
     }
 
     open() {
-        return $('#l_pr').click();
+        return new Element(this.main_page).click()
     }
 }
 

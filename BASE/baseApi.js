@@ -1,6 +1,6 @@
 import axios from 'axios';
 import logger from '@wdio/logger'
-let config = require('../../config')
+let config = require('../config.json')
 
 
 const log = logger(config.projectName)

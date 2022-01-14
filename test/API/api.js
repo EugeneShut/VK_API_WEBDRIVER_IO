@@ -1,4 +1,4 @@
-import BaseApi from "../API/BaseApi";
+import BaseApi from "../../BASE/baseApi";
 const helper = require('../../helpers/helper')
 const FormData = require('form-data');
 const fs = require('fs');
