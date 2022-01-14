@@ -33,7 +33,7 @@ class VkApi {
     likesGetList = "/method/likes.getList"
     wallDelete = "/method/wall.delete"
 
-    async GetUserId() {
+    async getUserId() {
         try {
             let data_d = new FormData();
             data_d.append(ACCESS_TOKEN, API_TOKEN);
@@ -54,7 +54,7 @@ class VkApi {
         }
     }
 
-    async PostRandomWallPost() {
+    async postRandomWallPost() {
         try {
             let data_d = new FormData();
             data_d.append(ACCESS_TOKEN, API_TOKEN);
@@ -93,7 +93,7 @@ class VkApi {
         return  response.data.response.upload_url
     }
 
-    async UploadImage(image_path) {
+    async uploadImage(image_path) {
         try {
             let link = await this.getUploadLink()
             var imageData = new FormData()
@@ -117,8 +117,8 @@ class VkApi {
         }
     }
 
-    async PostImageToWall(user_id, image_path) {
-        let push_image = await this.UploadImage(image_path)
+    async postImageToWall(user_id, image_path) {
+        let push_image = await this.uploadImage(image_path)
         let data_d = new FormData();
         data_d.append(ACCESS_TOKEN, API_TOKEN);
         data_d.append(V, API_VK_VERSION);
@@ -140,7 +140,7 @@ class VkApi {
         return PHOTO + user_id + "_" + result.data.response[0].id
     }
 
-    async EditWallPost(post_id, image="", message="") {
+    async editWallPost(post_id, image="", message="") {
         try {
             let data_d = new FormData();
             data_d.append(ACCESS_TOKEN, API_TOKEN);
@@ -164,7 +164,7 @@ class VkApi {
         }
     }
 
-    async AddPostComment(post_id, message="") {
+    async addPostComment(post_id, message="") {
         try {
             let data_d = new FormData();
             data_d.append(ACCESS_TOKEN, API_TOKEN);
@@ -187,7 +187,7 @@ class VkApi {
         }
     }
 
-    async GetPostLikes(post_id) {
+    async getPostLikes(post_id) {
         try {
             let data_d = new FormData();
             data_d.append(ACCESS_TOKEN, API_TOKEN);
@@ -210,7 +210,7 @@ class VkApi {
         }
     }
 
-    async DeletePost(post_id) {
+    async deletePost(post_id) {
         try {
             let data_d = new FormData();
             data_d.append(ACCESS_TOKEN, API_TOKEN);

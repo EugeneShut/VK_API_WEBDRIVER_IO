@@ -16,10 +16,10 @@ class MainPage extends Page {
         return $(this.lastPost).getAttribute("id")
     }
 
-    async GetUserId() {
+    async getUserId() {
         let user_id
         return browser.call(() => {
-            return VkApi.GetUserId()
+            return VkApi.getUserId()
                 .then(data => user_id = data)
                 .catch(err => console.log(err))
         })
@@ -28,7 +28,7 @@ class MainPage extends Page {
     async wallRandomPost() {
         let post_id
         return browser.call(() => {
-            return VkApi.PostRandomWallPost()
+            return VkApi.postRandomWallPost()
                 .then(data => post_id = data)
                 .catch(err => console.log(err))
         })
@@ -37,7 +37,7 @@ class MainPage extends Page {
     async wallPostImage(user_id, image_path) {
         let image
         return browser.call(() => {
-            return VkApi.PostImageToWall(user_id, image_path) // TODO: change userID and PATH
+            return VkApi.postImageToWall(user_id, image_path)
                 .then(data => image = data)
                 .catch(err => console.log(err))
         })
@@ -45,7 +45,7 @@ class MainPage extends Page {
 
     async wallPostEdit(post_id, image="", message="") {
         return browser.call(() => {
-            return VkApi.EditWallPost(post_id, image, message)
+            return VkApi.editWallPost(post_id, image, message)
                 .then(data => post_id = data)
                 .catch(err => console.log(err))
         })
@@ -53,19 +53,19 @@ class MainPage extends Page {
 
     async wallPostAddComment(post_id, message) {
         return browser.call(() => {
-            return VkApi.AddPostComment(post_id, message)
+            return VkApi.addPostComment(post_id, message)
         })
     }
 
     async getPostLike(post_id) {
         return browser.call(() => {
-            return VkApi.GetPostLikes(post_id)
+            return VkApi.getPostLikes(post_id)
         })
     }
 
     async deleteWallPost(post_id) {
         return browser.call(() => {
-            VkApi.DeletePost(post_id)
+            VkApi.deletePost(post_id)
         })
     }
 
@@ -83,7 +83,7 @@ class MainPage extends Page {
         return $(this.post + user_id + '_' + post_id + this.postText)
     }
 
-    async LastPostId(user_id, post_id) {
+    async lastPostId(user_id, post_id) {
         await browser.waitUntil(
             async () => (await $(this.post + user_id + '_' + post_id).getText()), {timeout: config.defaultTimeoutTime})
         let posted_id = await this.latestPost

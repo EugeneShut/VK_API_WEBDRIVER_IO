@@ -9,11 +9,11 @@ describe('VK Test', () => {
         await LoginPage.open()
         await LoginPage.login(config.credentials.login, config.credentials.password)
         await MainPage.open()
-        const user_id = await MainPage.GetUserId()
+        const user_id = await MainPage.getUserId()
 
 
         let post_id = await MainPage.wallRandomPost()
-        let last_post = await MainPage.LastPostId(user_id, post_id)
+        let last_post = await MainPage.lastPostId(user_id, post_id)
         await expectChai(post_id).to.equal(last_post)
 
         let image = await MainPage.wallPostImage(user_id, config.image)
