@@ -5,7 +5,7 @@ let expect = chai.expect;
 import config from '../../config'
 import VkApi from "../API/api";
 import helper from "../../helpers/helper";
-import {use} from "chai/index";
+
 
 describe('VK Test', () => {
 
@@ -19,6 +19,8 @@ describe('VK Test', () => {
         let post_id = await VkApi.postWallPost(generated_text)
         let user_data = {"user_id": user_id, "post_id": post_id, "test_image": config.image, "message": config.defaultTestMessage, }
         let last_post = await MainPage.lastPostId(user_data)
+        let last_post_text = await MainPage.PostTextByUserId(user_data)
+        await expect(last_post_text).to.equal(generated_text, "Post text is not equal to sent")
         await expect(post_id).to.equal(last_post, "returned post_id is not equal to the UI one")
 
         let image = await VkApi.postImageToWall(user_data)
