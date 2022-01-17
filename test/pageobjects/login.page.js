@@ -6,9 +6,9 @@ class LoginPage {
     password_field = '#index_pass'
     submit_button = '#index_login_button'
 
-    async login (username, password) {
-        await new Element(this.email_field).setValue(username)
-        await new Element(this.password_field).setValue(password)
+    async login (data) {
+        await new Element(this.email_field).setValue(data.username)
+        await new Element(this.password_field).setValue(data.password)
         await new Element(this.submit_button).click()
     }
 

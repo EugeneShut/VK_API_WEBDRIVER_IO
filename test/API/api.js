@@ -96,31 +96,31 @@ class VkApi {
         }
     }
 
-    async postImageToWall(user_id, image_path) {
+    async postImageToWall(data) {
         return browser.call(async () => {
-            let push_image = await this.uploadImage(image_path)
+            let push_image = await this.uploadImage(data.test_image)
             let data_d = new FormData();
             data_d.append(ACCESS_TOKEN, API_TOKEN);
             data_d.append(V, API_VK_VERSION);
-            data_d.append(USER_ID, user_id)
+            data_d.append(USER_ID, data.user_id)
             data_d.append(SERVER, push_image.server)
             data_d.append(HASH, push_image.hash)
             data_d.append(PHOTO, push_image.photo)
 
             let result = await BaseApi.postRequest(API_BASE_URL + this.saveWallPhoto, data_d)
-            return PHOTO + user_id + "_" + result.data.response[0].id
+            return PHOTO + data.user_id + "_" + result.data.response[0].id
         })
     }
 
-    async editWallPost(post_id, image="", message="") {
+    async editWallPost(data, image) {
         return browser.call(async () => {
             try {
                 let data_d = new FormData();
                 data_d.append(ACCESS_TOKEN, API_TOKEN);
                 data_d.append(V, API_VK_VERSION);
-                data_d.append(POST_ID, post_id);
+                data_d.append(POST_ID, data.post_id);
                 data_d.append(ATTACHMENTS, image);
-                data_d.append(MESSAGE, message);
+                data_d.append(MESSAGE, data.message);
 
                 let response = await BaseApi.postRequest(API_BASE_URL + this.wallEdit, data_d)
                 return response.data.response.post_id.toString();
@@ -130,14 +130,14 @@ class VkApi {
         })
     }
 
-    async addPostComment(post_id, message="") {
+    async addPostComment(data) {
         return browser.call(async () => {
             try {
                 let data_d = new FormData();
                 data_d.append(ACCESS_TOKEN, API_TOKEN);
                 data_d.append(V, API_VK_VERSION);
-                data_d.append(POST_ID, post_id);
-                data_d.append(MESSAGE, message);
+                data_d.append(POST_ID, data.post_id);
+                data_d.append(MESSAGE, data.message);
 
                 let response = await BaseApi.postRequest(API_BASE_URL + this.wallCreateComment, data_d)
                 return response.data.response.post_id.toString();
@@ -147,13 +147,13 @@ class VkApi {
         })
     }
 
-    async getPostLikes(post_id) {
+    async getPostLikes(data) {
         return browser.call(async () => {
             try {
                 let data_d = new FormData();
                 data_d.append(ACCESS_TOKEN, API_TOKEN);
                 data_d.append(V, API_VK_VERSION);
-                data_d.append(ITEM_ID, post_id);
+                data_d.append(ITEM_ID, data.post_id);
                 data_d.append(TYPE, POST);
 
                 let response = await BaseApi.postRequest(API_BASE_URL + this.likesGetList, data_d)

@@ -12,25 +12,25 @@ class MainPage {
     updatedPostText = "> div.post_highlight_updated_content"
     main_page = "#l_pr"
 
-    async getPostComment(user_id, post_id) {
-        return await new Element(`${this.wpt}${user_id}_${post_id}`).getText()
+    async getPostComment(data) {
+        return await new Element(`${this.wpt}${data.user_id}_${data.post_id}`).getText()
     }
 
-    async wallPostLike(user_id, post_id) {
-        return await new Element(`${this.likeWall}${user_id}_${post_id} > div > div > div`).click()
+    async wallPostLike(data) {
+        return await new Element(`${this.likeWall}${data.user_id}_${data.post_id} > div > div > div`).click()
     }
 
-    async getEditedPostMessage(user_id, post_id) {
+    async getEditedPostMessage(data) {
         await browser.waitUntil(
             async () => (await new Element
-            (`${this.post}${user_id}_${post_id}${this.postText}${this.updatedPostText}`).getText()),
+            (`${this.post}${data.user_id}_${data.post_id}${this.postText}${this.updatedPostText}`).getText()),
             {timeout: config.defaultTimeoutTime})
-        return new Element(`${this.post}${user_id}_${post_id}${this.postText}`)
+        return new Element(`${this.post}${data.user_id}_${data.post_id}${this.postText}`)
     }
 
-    async lastPostId(user_id, post_id) {
+    async lastPostId(data) {
         await browser.waitUntil(
-            async () => (await new Element(`${this.post}${user_id}_${post_id}`).getText()),
+            async () => (await new Element(`${this.post}${data.user_id}_${data.post_id}`).getText()),
             {timeout: config.defaultTimeoutTime})
         let posted_id = await new Element(this.lastPost).getAttribute("id")
         return posted_id.split("_")[1]
