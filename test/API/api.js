@@ -88,7 +88,7 @@ class VkApi {
             const coolPath = path.join(__dirname, '..', '..', image_path)
             imageData.append(PHOTO, fs.createReadStream(coolPath));
 
-            let push_image = await BaseApi.postRequest(link, imageData, {'Cookie': 'remixlang=114'}) // todo HEADER
+            let push_image = await BaseApi.postRequest(link, imageData, {'Cookie': 'remixlang=114'})
             return push_image.data
 
         } catch(err) {
