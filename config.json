@@ -1,4 +1,5 @@
 {
+  "projectName": "VkTest",
   "credentials": {
     "login": "login",
     "password": "password"
