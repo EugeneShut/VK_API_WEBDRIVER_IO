@@ -4,6 +4,7 @@ import * as chai from 'chai';
 let expect = chai.expect;
 import config from '../../config'
 import VkApi from "../API/api";
+import helper from "../../helpers/helper";
 
 describe('VK Test', () => {
 
@@ -13,8 +14,8 @@ describe('VK Test', () => {
         await MainPage.open()
         const user_id = await VkApi.getUserId()
 
-
-        let post_id = await VkApi.postRandomWallPost()
+        let generated_text = helper.generate_string()
+        let post_id = await VkApi.postWallPost(generated_text)
         let last_post = await MainPage.lastPostId(user_id, post_id)
         await expect(post_id).to.equal(last_post, "returned post_id is not equal to the UI one")
 

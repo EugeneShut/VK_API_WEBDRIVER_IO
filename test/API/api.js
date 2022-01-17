@@ -55,12 +55,12 @@ class VkApi {
     }
 
 
-    async postRandomWallPost() {
+    async postWallPost(text) {
         return browser.call(async () => {
             try {
                 let data_d = new FormData();
                 data_d.append(ACCESS_TOKEN, API_TOKEN);
-                data_d.append(MESSAGE, helper.generate_string());
+                data_d.append(MESSAGE, text);
                 data_d.append(V, API_VK_VERSION);
 
                 let response = await BaseApi.postRequest(API_BASE_URL + this.wallPost, data_d)
