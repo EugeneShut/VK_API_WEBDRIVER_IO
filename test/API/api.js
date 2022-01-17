@@ -40,31 +40,35 @@ class VkApi {
 
 
     async getUserId() {
-        try {
-            let data_d = new FormData();
-            data_d.append(ACCESS_TOKEN, API_TOKEN);
-            data_d.append(V, API_VK_VERSION);
+        return browser.call(async () => {
+            try {
+                let data_d = new FormData();
+                data_d.append(ACCESS_TOKEN, API_TOKEN);
+                data_d.append(V, API_VK_VERSION);
 
-            let response = await BaseApi.postRequest(API_BASE_URL + this.usersGet, data_d)
-            return response.data.response[0].id.toString();
-        } catch(err) {
-            log.info(err)
-        }
+                let response = await BaseApi.postRequest(API_BASE_URL + this.usersGet, data_d)
+                return response.data.response[0].id.toString();
+            } catch (err) {
+                log.info(err)
+            }
+        })
     }
 
 
     async postRandomWallPost() {
-        try {
-            let data_d = new FormData();
-            data_d.append(ACCESS_TOKEN, API_TOKEN);
-            data_d.append(MESSAGE, helper.generate_string());
-            data_d.append(V, API_VK_VERSION);
+        return browser.call(async () => {
+            try {
+                let data_d = new FormData();
+                data_d.append(ACCESS_TOKEN, API_TOKEN);
+                data_d.append(MESSAGE, helper.generate_string());
+                data_d.append(V, API_VK_VERSION);
 
-            let response = await BaseApi.postRequest(API_BASE_URL + this.wallPost, data_d)
-            return response.data.response.post_id.toString();
-        } catch(err) {
-            log.info(err)
-        }
+                let response = await BaseApi.postRequest(API_BASE_URL + this.wallPost, data_d)
+                return response.data.response.post_id.toString();
+            } catch (err) {
+                log.info(err)
+            }
+        })
     }
 
     async getUploadLink() {
@@ -93,77 +97,87 @@ class VkApi {
     }
 
     async postImageToWall(user_id, image_path) {
-        let push_image = await this.uploadImage(image_path)
-        let data_d = new FormData();
-        data_d.append(ACCESS_TOKEN, API_TOKEN);
-        data_d.append(V, API_VK_VERSION);
-        data_d.append(USER_ID, user_id)
-        data_d.append(SERVER, push_image.server)
-        data_d.append(HASH, push_image.hash)
-        data_d.append(PHOTO, push_image.photo)
+        return browser.call(async () => {
+            let push_image = await this.uploadImage(image_path)
+            let data_d = new FormData();
+            data_d.append(ACCESS_TOKEN, API_TOKEN);
+            data_d.append(V, API_VK_VERSION);
+            data_d.append(USER_ID, user_id)
+            data_d.append(SERVER, push_image.server)
+            data_d.append(HASH, push_image.hash)
+            data_d.append(PHOTO, push_image.photo)
 
-        let result = await BaseApi.postRequest(API_BASE_URL + this.saveWallPhoto, data_d)
-        return PHOTO + user_id + "_" + result.data.response[0].id
+            let result = await BaseApi.postRequest(API_BASE_URL + this.saveWallPhoto, data_d)
+            return PHOTO + user_id + "_" + result.data.response[0].id
+        })
     }
 
     async editWallPost(post_id, image="", message="") {
-        try {
-            let data_d = new FormData();
-            data_d.append(ACCESS_TOKEN, API_TOKEN);
-            data_d.append(V, API_VK_VERSION);
-            data_d.append(POST_ID, post_id);
-            data_d.append(ATTACHMENTS, image);
-            data_d.append(MESSAGE, message);
+        return browser.call(async () => {
+            try {
+                let data_d = new FormData();
+                data_d.append(ACCESS_TOKEN, API_TOKEN);
+                data_d.append(V, API_VK_VERSION);
+                data_d.append(POST_ID, post_id);
+                data_d.append(ATTACHMENTS, image);
+                data_d.append(MESSAGE, message);
 
-            let response = await BaseApi.postRequest(API_BASE_URL + this.wallEdit, data_d)
-            return response.data.response.post_id.toString();
-        } catch(err) {
-            log.info(err)
-        }
+                let response = await BaseApi.postRequest(API_BASE_URL + this.wallEdit, data_d)
+                return response.data.response.post_id.toString();
+            } catch (err) {
+                log.info(err)
+            }
+        })
     }
 
     async addPostComment(post_id, message="") {
-        try {
-            let data_d = new FormData();
-            data_d.append(ACCESS_TOKEN, API_TOKEN);
-            data_d.append(V, API_VK_VERSION);
-            data_d.append(POST_ID, post_id);
-            data_d.append(MESSAGE, message);
+        return browser.call(async () => {
+            try {
+                let data_d = new FormData();
+                data_d.append(ACCESS_TOKEN, API_TOKEN);
+                data_d.append(V, API_VK_VERSION);
+                data_d.append(POST_ID, post_id);
+                data_d.append(MESSAGE, message);
 
-            let response = await BaseApi.postRequest(API_BASE_URL + this.wallCreateComment, data_d)
-            return response.data.response.post_id.toString();
-        } catch(err) {
-            log.info(err)
-        }
+                let response = await BaseApi.postRequest(API_BASE_URL + this.wallCreateComment, data_d)
+                return response.data.response.post_id.toString();
+            } catch (err) {
+                log.info(err)
+            }
+        })
     }
 
     async getPostLikes(post_id) {
-        try {
-            let data_d = new FormData();
-            data_d.append(ACCESS_TOKEN, API_TOKEN);
-            data_d.append(V, API_VK_VERSION);
-            data_d.append(ITEM_ID, post_id);
-            data_d.append(TYPE, POST);
+        return browser.call(async () => {
+            try {
+                let data_d = new FormData();
+                data_d.append(ACCESS_TOKEN, API_TOKEN);
+                data_d.append(V, API_VK_VERSION);
+                data_d.append(ITEM_ID, post_id);
+                data_d.append(TYPE, POST);
 
-            let response = await BaseApi.postRequest(API_BASE_URL + this.likesGetList, data_d)
-            return response.data.response.items[0].toString();
-        } catch(err) {
-            log.info(err)
-        }
+                let response = await BaseApi.postRequest(API_BASE_URL + this.likesGetList, data_d)
+                return response.data.response.items[0].toString();
+            } catch (err) {
+                log.info(err)
+            }
+        })
     }
 
     async deletePost(post_id) {
-        try {
-            let data_d = new FormData();
-            data_d.append(ACCESS_TOKEN, API_TOKEN);
-            data_d.append(V, API_VK_VERSION);
-            data_d.append(POST_ID, post_id);
+        return browser.call(async () => {
+            try {
+                let data_d = new FormData();
+                data_d.append(ACCESS_TOKEN, API_TOKEN);
+                data_d.append(V, API_VK_VERSION);
+                data_d.append(POST_ID, post_id);
 
-            let response = await BaseApi.postRequest(API_BASE_URL + this.wallDelete, data_d)
-            return response.data;
-        } catch(err) {
-            log.info(err)
-        }
+                let response = await BaseApi.postRequest(API_BASE_URL + this.wallDelete, data_d)
+                return response.data;
+            } catch (err) {
+                log.info(err)
+            }
+        })
     }
 
 }

@@ -17,60 +17,6 @@ class MainPage {
     updatedPostText = "> div.post_highlight_updated_content"
     main_page = "#l_pr"
 
-    async getUserId() { // TODO: api
-        let user_id
-        return browser.call(() => {
-            return VkApi.getUserId()
-                .then(data => user_id = data)
-                .catch(err => log.info(err))
-        })
-    }
-
-    async wallRandomPost() { // TODO: api
-        let post_id
-        return browser.call(() => {
-            return VkApi.postRandomWallPost()
-                .then(data => post_id = data)
-                .catch(err => log.info(err))
-        })
-    }
-
-    async wallPostImage(user_id, image_path) { // TODO: api
-        let image
-        return browser.call(() => {
-            return VkApi.postImageToWall(user_id, image_path)
-                .then(data => image = data)
-                .catch(err => log.info(err))
-        })
-    }
-
-    async wallPostEdit(post_id, image="", message="") { // TODO: api
-        return browser.call(() => {
-            return VkApi.editWallPost(post_id, image, message)
-                .then(data => post_id = data)
-                .catch(err => log.info(err))
-        })
-    }
-
-    async wallPostAddComment(post_id, message) { // TODO: api
-        return browser.call(() => {
-            return VkApi.addPostComment(post_id, message)
-        })
-    }
-
-    async getPostLike(post_id) { // TODO: api
-        return browser.call(() => {
-            return VkApi.getPostLikes(post_id)
-        })
-    }
-
-    async deleteWallPost(post_id) { // TODO: api
-        return browser.call(() => {
-            VkApi.deletePost(post_id)
-        })
-
-    }
-
     async getPostComment(user_id, post_id) {
         return await new Element(this.wpt + user_id + '_' + post_id).getText()
     }
