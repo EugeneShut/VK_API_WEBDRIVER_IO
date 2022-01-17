@@ -1,5 +1,4 @@
 import BaseApi from "../../BASE/baseApi";
-import helper from '../../helpers/helper'
 import FormData from 'form-data'
 import fs from 'fs'
 import logger from '@wdio/logger'

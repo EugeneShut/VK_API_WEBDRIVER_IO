@@ -17,7 +17,7 @@ describe('VK Test', () => {
 
         let generated_text = helper.generate_string()
         let post_id = await VkApi.postWallPost(generated_text)
-        let user_data = {"user_id": user_id, "post_id": post_id, "test_image": config.image, "message": config.defaultTestMessage, }
+        let user_data = {"user_id": user_id, "post_id": post_id, "test_image": config.image, "message": config.defaultTestMessage}
         let last_post = await MainPage.lastPostId(user_data)
         let last_post_text = await MainPage.PostTextByUserId(user_data)
         await expectChai(last_post_text).to.equal(generated_text, "Post text is not equal to sent")

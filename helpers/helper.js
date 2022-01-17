@@ -1,6 +1,5 @@
 import config from '../config.json'
-
-const Jimp = require("jimp");
+import Jimp from "jimp"
 
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz"
