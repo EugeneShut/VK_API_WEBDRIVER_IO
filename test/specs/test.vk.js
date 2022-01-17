@@ -43,6 +43,6 @@ describe('VK Test', () => {
         await expectChai(user_data.user_id).to.equal(post_like_id, "post liked user id is not equal to expected")
 
         await VkApi.deletePost(user_data.post_id)
-        await expectChai(post_message).not.toBeDisplayed() // todo: change
+        await expectChai(await post_message.isExisting()).not.equal(true)
     });
 });
