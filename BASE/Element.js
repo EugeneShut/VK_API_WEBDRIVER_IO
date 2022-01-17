@@ -1,5 +1,5 @@
 import logger from '@wdio/logger'
-let config = require('../config.json')
+import config from '../config.json'
 
 
 const log = logger(config.projectName)

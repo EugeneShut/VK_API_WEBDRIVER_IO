@@ -1,6 +1,6 @@
 import VkApi from "../API/api";
 import logger from '@wdio/logger'
-let config = require('../../config')
+import config from '../../config'
 import Element from "../../BASE/Element"
 
 
@@ -68,6 +68,7 @@ class MainPage {
         return browser.call(() => {
             VkApi.deletePost(post_id)
         })
+
     }
 
     async getPostComment(user_id, post_id) {
@@ -98,4 +99,4 @@ class MainPage {
     }
 }
 
-module.exports = new MainPage();
+export default new MainPage();

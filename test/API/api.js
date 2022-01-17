@@ -1,9 +1,9 @@
 import BaseApi from "../../BASE/baseApi";
-const helper = require('../../helpers/helper')
-const FormData = require('form-data');
-const fs = require('fs');
+import helper from '../../helpers/helper'
+import FormData from 'form-data'
+import fs from 'fs'
 import logger from '@wdio/logger'
-let config = require('../../config')
+import config from '../../config.json'
 
 
 const log = logger(config.projectName)
@@ -167,4 +167,4 @@ class VkApi {
     }
 
 }
-export default new VkApi();
+module.exports = new VkApi();

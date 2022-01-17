@@ -1,4 +1,4 @@
-let config = require('../config.json')
+import config from '../config.json'
 
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz"
