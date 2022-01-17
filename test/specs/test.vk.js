@@ -15,19 +15,7 @@ describe('VK Test', () => {
         await MainPage.open()
         const user_id = await VkApi.getUserId()
 
-
-        const elem = $("#wpt627657327_20107 > div.page_post_sized_thumbs.clear_fix > a")
-        elem.click()
-        const elem2 = $("#pv_photo > img")
-        elem2.saveScreenshot(config.iamgeToSave)
-
-        const ex = $("#pv_box > div.clear_fix.pv_photo_wrap > div.pv_close_btn")
-        ex.click()
-
-        let resultOfImages = await helper.compare_two_images(config.image, config.iamgeToSave)
-        await expectChai(resultOfImages).to.be.at.most(1)
-
-        let generated_text = await helper.generate_string()
+        let generated_text = helper.generate_string()
         let post_id = await VkApi.postWallPost(generated_text)
         let user_data = {"user_id": user_id, "post_id": post_id, "test_image": config.image, "message": config.defaultTestMessage, }
         let last_post = await MainPage.lastPostId(user_data)
@@ -37,6 +25,11 @@ describe('VK Test', () => {
 
         let image = await VkApi.postImageToWall(user_data)
         await VkApi.editWallPost(user_data, image)
+
+        await MainPage.clickOnImageSaveAndClose(user_data)
+        let resultOfImages = await helper.compare_two_images(config.image, config.iamgeToSave)
+        await expectChai(resultOfImages).to.be.at.most(1)
+
         let post_message = await MainPage.getEditedPostMessage(user_data)
         await expectChai(config.defaultTestMessage).to.equal(await post_message.getText(),
             "returned post message is not equal to UI one")
