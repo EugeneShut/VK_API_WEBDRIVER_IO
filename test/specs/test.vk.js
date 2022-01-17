@@ -16,21 +16,23 @@ describe('VK Test', () => {
 
         let post_id = await VkApi.postRandomWallPost()
         let last_post = await MainPage.lastPostId(user_id, post_id)
-        await expect(post_id).to.equal(last_post)
+        await expect(post_id).to.equal(last_post, "returned post_id is not equal to the UI one")
 
         let image = await VkApi.postImageToWall(user_id, config.image)
         await VkApi.editWallPost(post_id, image, config.defaultTestMessage)
         let post_message = await MainPage.getEditedPostMessage(user_id, post_id)
-        await expect(config.defaultTestMessage).to.equal(await post_message.getText())
+        await expect(config.defaultTestMessage).to.equal(await post_message.getText(),
+            "returned post message is not equal to UI one")
         await VkApi.addPostComment(post_id, config.defaultTestMessage)
         let comment_text = await MainPage.getPostComment(user_id, post_id)
-        await expect(config.defaultTestMessage).to.equal(comment_text)
+        await expect(config.defaultTestMessage).to.equal(comment_text,
+            "returned post comment message is not equal ti UI one")
 
         await MainPage.wallPostLike(user_id, post_id)
         let post_like_id = await VkApi.getPostLikes(post_id)
-        await expect(user_id).to.equal(post_like_id)
+        await expect(user_id).to.equal(post_like_id, "post liked user id is not equal to expected")
 
         await VkApi.deletePost(post_id)
-        await expect(post_message).not.toBeDisplayed()
+        await expect(post_message).not.toBeDisplayed() // todo: change
     });
 });
