@@ -1,7 +1,7 @@
 import LoginPage from '../pageobjects/login.page'
 import MainPage from '../pageobjects/main.page'
 import * as chai from 'chai';
-let expect = chai.expect;
+let expectChai = chai.expect;
 import config from '../../config'
 import VkApi from "../API/api";
 import helper from "../../helpers/helper";
@@ -15,29 +15,41 @@ describe('VK Test', () => {
         await MainPage.open()
         const user_id = await VkApi.getUserId()
 
-        let generated_text = helper.generate_string()
+
+        const elem = $("#wpt627657327_20107 > div.page_post_sized_thumbs.clear_fix > a")
+        elem.click()
+        const elem2 = $("#pv_photo > img")
+        elem2.saveScreenshot(config.iamgeToSave)
+
+        const ex = $("#pv_box > div.clear_fix.pv_photo_wrap > div.pv_close_btn")
+        ex.click()
+
+        let resultOfImages = await helper.compare_two_images(config.image, config.iamgeToSave)
+        await expectChai(resultOfImages).to.be.at.most(1)
+
+        let generated_text = await helper.generate_string()
         let post_id = await VkApi.postWallPost(generated_text)
         let user_data = {"user_id": user_id, "post_id": post_id, "test_image": config.image, "message": config.defaultTestMessage, }
         let last_post = await MainPage.lastPostId(user_data)
         let last_post_text = await MainPage.PostTextByUserId(user_data)
-        await expect(last_post_text).to.equal(generated_text, "Post text is not equal to sent")
-        await expect(post_id).to.equal(last_post, "returned post_id is not equal to the UI one")
+        await expectChai(last_post_text).to.equal(generated_text, "Post text is not equal to sent")
+        await expectChai(post_id).to.equal(last_post, "returned post_id is not equal to the UI one")
 
         let image = await VkApi.postImageToWall(user_data)
         await VkApi.editWallPost(user_data, image)
         let post_message = await MainPage.getEditedPostMessage(user_data)
-        await expect(config.defaultTestMessage).to.equal(await post_message.getText(),
+        await expectChai(config.defaultTestMessage).to.equal(await post_message.getText(),
             "returned post message is not equal to UI one")
         await VkApi.addPostComment(user_data)
         let comment_text = await MainPage.getPostComment(user_data)
-        await expect(config.defaultTestMessage).to.equal(comment_text,
+        await expectChai(config.defaultTestMessage).to.equal(comment_text,
             "returned post comment message is not equal ti UI one")
 
         await MainPage.wallPostLike(user_data)
         let post_like_id = await VkApi.getPostLikes(user_data)
-        await expect(user_data.user_id).to.equal(post_like_id, "post liked user id is not equal to expected")
+        await expectChai(user_data.user_id).to.equal(post_like_id, "post liked user id is not equal to expected")
 
         await VkApi.deletePost(user_data.post_id)
-        await expect(post_message).not.toBeDisplayed() // todo: change
+        await expectChai(post_message).not.toBeDisplayed() // todo: change
     });
 });
